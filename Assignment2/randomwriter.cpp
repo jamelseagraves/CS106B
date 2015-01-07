@@ -55,7 +55,7 @@ sortData(input_chars);
 }
 
 void sortData(vector<char> v) {
-map<string,map<string,int> m1;
+map< string, map<string,int> > m1;
 map<string,int> m2;
 int char_count = 0;
 string sequence;
@@ -64,7 +64,10 @@ if (char_count < sequence_length) {
 sequence += v.at(i);
 char_count++;
 } else {
-string new_sequence = v.at(i);
+stringstream ss;
+string new_sequence;
+ss << v.at(i);
+ss >> new_sequence;
 if(m2[new_sequence]) {
 m2[new_sequence] += 1;
 } else {
@@ -75,26 +78,6 @@ char_count = 0;
 sequence = new_sequence;
 char_count++;
 i -= (sequence_length - 1);
-}
-}
-}
-
-void getMostFrequentSequence(vector<char> v) {
-sort(v.begin(), v.end());
-char currentChar = v[0];
-char mostChar = v[0];
-int currentCount = 0;
-int mostCount = 0;
-for (auto c : v) {
-if ( c == currentChar )
-currentCount++;
-else {
-if (currentCount > mostCount) {
-mostChar = currentChar;
-mostCount = currentCount;
-}
-currentChar = c;
-currentCount = 1;
 }
 }
 }
