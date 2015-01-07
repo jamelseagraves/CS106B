@@ -30,3 +30,23 @@ i -= (sequence_length - 1);
 }
 return 0;
 }
+
+void getMostFrequentSequence(vector<char> v) {
+sort(v.begin(), v.end());
+char currentChar = v[0];
+char mostChar = v[0];
+int currentCount = 0;
+int mostCount = 0;
+for (auto c : v) {
+if ( c == currentChar )
+currentCount++;
+else {
+if (currentCount > mostCount) {
+mostChar = currentChar;
+mostCount = currentCount;
+}
+currentChar = c;
+currentCount = 1;
+}
+}
+}
