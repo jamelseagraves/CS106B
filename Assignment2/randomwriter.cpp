@@ -3,6 +3,7 @@
 #include <sstream>
 #include <map>
 #include <vector>
+#include "/home/jcsax/CS106B/StanfordCPPLib/random.h"
 using namespace std;
 
 int sequence_length = 0;
@@ -11,7 +12,7 @@ ifstream ifs;
 void openFile(const char* filename);
 void readFile();
 void sortData(vector<char> v);
-void writeRandomly(map< string, map<string,int> > m1, map<string,int> m2);
+void writeRandomly(string charSequence, map< string, map<string,int> > m1, map<string,int> m2, vector<char> v);
 
 int main() {
 string input;
@@ -77,34 +78,45 @@ char_count++;
 i -= (sequence_length - 1);
 }
 }
-
-writeRandomly(m1, m2);
-}
-
-void writeRandomly(map< string, map<string,int> > m1, map<string,int> m2) {
 int currentMax = 0;
-string charSequence;
+string mostFrequentSequence;
 for (map<string,int>::iterator it = m2.begin(); it != m2.end(); it++) {
 if (it->second > currentMax) {
-charSequence = it->first;
+mostFrequentSequence = it->first;
 currentMax = it->second;
 }
 }
+writeRandomly(mostFrequentSequence, m1, m2, v);
+}
+
+void writeRandomly(string charSequence, map< string, map<string,int> > m1, map<string,int> m2, vector<char> v) {
 string output = charSequence;
 map<string,int> inner_map;
-for (unsigned int i = 0; i < 200; i++) {
+string lastSequence;
+for (unsigned int i = v.size()-(charSequence.length()+1); i < v.size()-1; i++) {
+lastSequence += v.at(i);
+}
+for (unsigned int i = 0; i < (2000-charSequence.length()); i++) {
 inner_map = m1[charSequence];
-int currentMax = 0;
 string next_char;
+bool selected = false;
+while (!selected) {
 for (map<string,int>::iterator it = inner_map.begin(); it != inner_map.end(); it++) {
-if (it->second > currentMax) {
+double probability = it->second/double(m2[charSequence]);
+selected = randomChance(probability);
+if (selected) {
 next_char = it->first;
-currentMax = it->second;
+break;
 }
 }
+}
+if (charSequence.compare(lastSequence) != 0) {
 output += next_char;
 charSequence.erase(0,1);
 charSequence += next_char;
+} else {
+break;
 }
-cout << output << endl;
+}
+cout << "\n" << output << "\n" << endl;
 }
