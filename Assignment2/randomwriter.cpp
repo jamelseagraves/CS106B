@@ -69,7 +69,6 @@ m2[sequence] += 1;
 string next_char;
 next_char += v.at(i);
 m1[sequence][next_char] += 1;
-cout << sequence << " : " << next_char << " : " << m1[sequence][next_char] << endl;
 char_count = 0;
 string new_sequence;
 new_sequence += v.at(i-(sequence_length-1));
@@ -91,4 +90,20 @@ writeRandomly(mostFrequentSequence, m1);
 
 void writeRandomly(string charSequence, map< string, map<string,int> > m) {
 string output = charSequence;
+map<string,int> inner_map;
+for (unsigned int i = 0; i < 200; i++) {
+inner_map = m[charSequence];
+int currentMax = 0;
+string next_char;
+for (map<string,int>::iterator it = inner_map.begin(); it != inner_map.end(); it++) {
+if (it->second > currentMax) {
+next_char = it->first;
+currentMax = it->second;
+}
+}
+output += next_char;
+charSequence.erase(0,1);
+charSequence += next_char;
+}
+cout << output << endl;
 }
