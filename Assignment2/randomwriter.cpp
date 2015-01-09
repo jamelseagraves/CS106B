@@ -11,6 +11,7 @@ ifstream ifs;
 void openFile(const char* filename);
 void readFile();
 void sortData(vector<char> v);
+void writeRandomly(string charSequence, map< string, map<string,int> > m);
 
 int main() {
 string input;
@@ -85,4 +86,9 @@ mostFrequentSequence = it->first;
 currentMax = it->second;
 }
 }
+writeRandomly(mostFrequentSequence, m1);
+}
+
+void writeRandomly(string charSequence, map< string, map<string,int> > m) {
+string output = charSequence;
 }
