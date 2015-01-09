@@ -11,7 +11,7 @@ ifstream ifs;
 void openFile(const char* filename);
 void readFile();
 void sortData(vector<char> v);
-void writeRandomly(string charSequence, map< string, map<string,int> > m);
+void writeRandomly(map< string, map<string,int> > m1, map<string,int> m2);
 
 int main() {
 string input;
@@ -77,22 +77,23 @@ char_count++;
 i -= (sequence_length - 1);
 }
 }
+
+writeRandomly(m1, m2);
+}
+
+void writeRandomly(map< string, map<string,int> > m1, map<string,int> m2) {
 int currentMax = 0;
-string mostFrequentSequence;
+string charSequence;
 for (map<string,int>::iterator it = m2.begin(); it != m2.end(); it++) {
 if (it->second > currentMax) {
-mostFrequentSequence = it->first;
+charSequence = it->first;
 currentMax = it->second;
 }
 }
-writeRandomly(mostFrequentSequence, m1);
-}
-
-void writeRandomly(string charSequence, map< string, map<string,int> > m) {
 string output = charSequence;
 map<string,int> inner_map;
 for (unsigned int i = 0; i < 200; i++) {
-inner_map = m[charSequence];
+inner_map = m1[charSequence];
 int currentMax = 0;
 string next_char;
 for (map<string,int>::iterator it = inner_map.begin(); it != inner_map.end(); it++) {
