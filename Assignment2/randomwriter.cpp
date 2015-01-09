@@ -56,7 +56,6 @@ sortData(input_chars);
 
 void sortData(vector<char> v) {
 map< string, map<string,int> > m1;
-map<string,int> m2;
 int char_count = 0;
 string sequence;
 for (unsigned int i = 0; i < v.size(); i++) {
@@ -66,27 +65,23 @@ char_count++;
 } else {
 string next_char;
 next_char += v.at(i);
-if(m2[next_char]) {
-m2[next_char] += 1;
-} else {
-m2[next_char] = 1;
-}
-m1[sequence] = m2;
+m1[sequence][next_char] += 1;
+cout << sequence << " : " << next_char << " : " << m1[sequence][next_char] << endl;
 char_count = 0;
 string new_sequence;
-new_sequence += v.at(i-1);
+new_sequence += v.at(i-(sequence_length-1));
 sequence = new_sequence;
 char_count++;
 i -= (sequence_length - 1);
 }
 }
 
-for (map< string, map<string,int> >::iterator it1 = m1.begin(); it1 != m1.end(); it1++) {
+/*for (map< string, map<string,int> >::iterator it1 = m1.begin(); it1 != m1.end(); it1++) {
 cout << it1->first << " has value: " << endl;
 for (map<string,int>::iterator it2 = m2.begin(); it2 != m2.end(); it2++) {
 cout << it2->first << " has value " << it2->second << endl;
 }
-}
+}*/
 }
 
 /* void getMostFrequentSequence(vector<char> v) {
