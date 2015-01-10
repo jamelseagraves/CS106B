@@ -12,7 +12,7 @@ ifstream ifs;
 void openFile(const char* filename);
 void readFile();
 void sortData(vector<char> v);
-void writeRandomly(string charSequence, map< string, map<string,int> > m1, map<string,int> m2, vector<char> v);
+void writeRandomly(string charSequence, map< string, map<string,int> > m1, map<string,int> m2);
 
 int main() {
 string input;
@@ -86,16 +86,12 @@ mostFrequentSequence = it->first;
 currentMax = it->second;
 }
 }
-writeRandomly(mostFrequentSequence, m1, m2, v);
+writeRandomly(mostFrequentSequence, m1, m2);
 }
 
-void writeRandomly(string charSequence, map< string, map<string,int> > m1, map<string,int> m2, vector<char> v) {
+void writeRandomly(string charSequence, map< string, map<string,int> > m1, map<string,int> m2) {
 string output = charSequence;
 map<string,int> inner_map;
-string lastSequence;
-for (unsigned int i = v.size()-(charSequence.length()+1); i < v.size()-1; i++) {
-lastSequence += v.at(i);
-}
 for (unsigned int i = 0; i < (2000-charSequence.length()); i++) {
 inner_map = m1[charSequence];
 string next_char;
@@ -110,11 +106,11 @@ break;
 }
 }
 }
-if (charSequence.compare(lastSequence) != 0) {
 output += next_char;
 charSequence.erase(0,1);
 charSequence += next_char;
-} else {
+if (m1.find(charSequence) == m1.end()) {
+cout << "done" << endl;
 break;
 }
 }
