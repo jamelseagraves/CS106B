@@ -6,6 +6,7 @@
 #include "/home/jcsax/CS106B/StanfordCPPLib/random.h"
 using namespace std;
 
+const int NUM_CHARS = 2000;
 int sequence_length = 0;
 ifstream ifs;
 
@@ -92,7 +93,7 @@ writeRandomly(mostFrequentSequence, m1, m2);
 void writeRandomly(string charSequence, map< string, map<string,int> > m1, map<string,int> m2) {
 string output = charSequence;
 map<string,int> inner_map;
-for (unsigned int i = 0; i < (2000-charSequence.length()); i++) {
+for (unsigned int i = 0; i < (NUM_CHARS-sequence_length); i++) {
 inner_map = m1[charSequence];
 string next_char;
 bool selected = false;
